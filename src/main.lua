@@ -4,9 +4,10 @@ _ = require "thirdparty.moses_min"
 Gamestate = require "thirdparty.gamestate"
 Timer = require "thirdparty.timer"
 
--- Game files
+-- Game states
 menu = require "menu"
 credits = require "credits"
+game = require "game"
 
 function love.load()
     -- Set the window size and title
@@ -18,6 +19,9 @@ function love.load()
 
     -- Load images used in multiple states
     logo = love.graphics.newImage("images/logo.png")
+
+    -- Load the game assets
+    game:load()
 
     -- Show the menu
     Gamestate.registerEvents()

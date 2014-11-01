@@ -16,7 +16,7 @@ end
 function menu:mousepressed(x, y, button)
     if button == "l" then
         if x >= 440 and x <= 520 and y >= 370 and y <= 410 then
-            print("Start")
+            Gamestate.switch(game)
         end
 
         if x >= 660 and x <= 775 and y >= 370 and y <= 410 then
