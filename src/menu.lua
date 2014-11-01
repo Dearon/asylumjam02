@@ -9,26 +9,26 @@ function menu:draw()
     love.graphics.clear()
     love.graphics.setBackgroundColor(255, 255, 255)
 
-    love.graphics.draw(logo, 150, 25)
+    love.graphics.draw(logo, 0, 0)
 
     love.graphics.setColor(0, 0, 0)
 
-    love.graphics.print("Start", 380, 180)
-    love.graphics.print("Credits", 360, 230)
-    love.graphics.print("Quit", 385, 280)
+    love.graphics.print("Start", 440, 370)
+    love.graphics.print("Credits", 660, 370)
+    love.graphics.print("Quit", 950, 370)
 end
 
 function menu:mousepressed(x, y, button)
     if button == "l" then
-        if x >= 380 and x <= 460 and y >= 180 and y <= 220 then
+        if x >= 440 and x <= 520 and y >= 370 and y <= 410 then
             print("Start")
         end
 
-        if x >= 360 and x <= 475 and y >= 230 and y <= 270 then
+        if x >= 660 and x <= 775 and y >= 370 and y <= 410 then
             print("Credits")
         end
 
-        if x >= 385 and x <= 455 and y >= 280 and y <= 320 then
+        if x >= 950 and x <= 1020 and y >= 370 and y <= 410 then
             love.event.quit()
         end
     end
