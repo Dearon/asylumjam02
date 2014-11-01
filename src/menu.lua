@@ -1,10 +1,5 @@
 local menu = {}
 
-function menu:load()
-    -- Load the logo
-    logo = love.graphics.newImage("images/logo.png")
-end
-
 function menu:draw()
     love.graphics.clear()
     love.graphics.setBackgroundColor(255, 255, 255)
@@ -25,7 +20,7 @@ function menu:mousepressed(x, y, button)
         end
 
         if x >= 660 and x <= 775 and y >= 370 and y <= 410 then
-            print("Credits")
+            Gamestate.switch(credits)
         end
 
         if x >= 950 and x <= 1020 and y >= 370 and y <= 410 then

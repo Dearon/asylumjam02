@@ -6,6 +6,7 @@ Timer = require "thirdparty.timer"
 
 -- Game files
 menu = require "menu"
+credits = require "credits"
 
 function love.load()
     -- Set the window size and title
@@ -15,12 +16,16 @@ function love.load()
     -- Set the default font
     love.graphics.setNewFont("fonts/OpenSans-Regular.ttf", "36")
 
-    -- Call the other load functions
-    menu:load()
+    -- Load images used in multiple states
+    logo = love.graphics.newImage("images/logo.png")
 
     -- Show the menu
     Gamestate.registerEvents()
     Gamestate.switch(menu)
+end
+
+function love.update(dt)
+    Timer.update(dt)
 end
 
 function love.keypressed(key)
