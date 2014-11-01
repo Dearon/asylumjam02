@@ -9,7 +9,7 @@ menu = require "menu"
 
 function love.load()
     -- Set the window size and title
-    love.window.setMode(800, 600)
+    love.window.setMode(1280, 720)
     love.window.setTitle("Graveyard Shift")
 
     -- Set the default font
