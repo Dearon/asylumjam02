@@ -28,4 +28,15 @@ function love.keypressed(key)
     if key == "escape" then
         love.event.quit()
     end
+
+    -- Toggle fullscreen
+    if love.keyboard.isDown("lctrl") and love.keyboard.isDown("return") then
+        fullscreen, fstype = love.window.getFullscreen()
+
+        if fullscreen then 
+            love.window.setFullscreen(false)
+        else
+            love.window.setFullscreen(true)
+        end
+    end
 end
