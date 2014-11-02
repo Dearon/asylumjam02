@@ -16,6 +16,9 @@ function game:load()
     coffin = love.graphics.newImage("images/coffin.png")
     CoffinLockbox1 = love.graphics.newImage("images/CoffinLockbox1.png")
     CoffinLockbox2 = love.graphics.newImage("images/CoffinLockbox2.png")
+    CoffinLockbox3 = love.graphics.newImage("images/CoffinLockbox3.png")
+
+    key = love.graphics.newImage("images/key.png")
 
     picturefront = love.graphics.newImage("images/picturefront.png")
     pictureback = love.graphics.newImage("images/pictureback.png")
@@ -58,6 +61,11 @@ function game:mousepressed(x, y, button)
             elseif gameState == "lockbox" then
                 if x >= 201 and x <= 330 and y >= 47 and y <= 215 then
                     overlay = "numberpuzzle"
+                end
+            elseif gameState == "openlockbox" then
+                if x >= 217 and x <= 304 and y >= 138 and y <= 199 then
+                    inventory.key = true
+                    gameState = "lockboxkeytaken"
                 end
             end
 
@@ -135,6 +143,8 @@ function game:draw()
         love.graphics.draw(CoffinLockbox1, 0, 0)
     elseif gameState == "openlockbox" then
         love.graphics.draw(CoffinLockbox2, 0, 0)
+    elseif gameState == "lockboxkeytaken" then
+        love.graphics.draw(CoffinLockbox3, 0, 0)
     end
 
     -- Show the picture if it hasn't been picked up
@@ -148,6 +158,10 @@ function game:draw()
     -- Draw the inventory items
     if inventory.picture then
         love.graphics.draw(picturefront, 10, 646, 0, 0.1, 0.1)
+    end
+
+    if inventory.key then
+        love.graphics.draw(key, 70, 646, 0, 0.5, 0.5)
     end
 
     -- Draw the toggle audio button
