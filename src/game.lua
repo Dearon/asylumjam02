@@ -5,6 +5,8 @@ local musicPaused = false
 local gameState = "start"
 local inventory = {picture = false, key = false}
 local overlay = false
+local numberpuzzleNumbers = { ["1"] = 0, ["2"] = 0, ["3"] = 0 }
+local numberpuzzleSolution = { ["1"] = 5, ["2"] = 2, ["3"] = 8 }
 
 local function suffocate()
     Timer.tween(3, overlayColor, {0, 0, 0, 255}, 'linear', function() Gamestate.switch(suffocation) end)
@@ -13,6 +15,7 @@ end
 function game:load()
     coffin = love.graphics.newImage("images/coffin.png")
     CoffinLockbox1 = love.graphics.newImage("images/CoffinLockbox1.png")
+    CoffinLockbox2 = love.graphics.newImage("images/CoffinLockbox2.png")
 
     picturefront = love.graphics.newImage("images/picturefront.png")
     pictureback = love.graphics.newImage("images/pictureback.png")
@@ -47,32 +50,65 @@ function game:mousepressed(x, y, button)
             end
         end
 
-        if gameState == "start" then
-            if x >= 201 and x <= 330 and y >= 47 and y <= 215 then
-                gameState = "lockbox"
+        if not overlay then
+            if gameState == "start" then
+                if x >= 201 and x <= 330 and y >= 47 and y <= 215 then
+                    gameState = "lockbox"
+                end
+            elseif gameState == "lockbox" then
+                if x >= 201 and x <= 330 and y >= 47 and y <= 215 then
+                    overlay = "numberpuzzle"
+                end
             end
-        end
 
-        if overlay == "picturefront" or overlay == "pictureback" then
-            if x >= 474 and x <= 806 and y >= 35 and y <= 685 then
-                if overlay == "picturefront" then
-                    overlay = "pictureback"
-                else
+            if not inventory.picture then
+                if x >= 873 and x <= 944 and y >= 303 and y <= 372 then
+                    inventory.picture = true
                     overlay = "picturefront"
                 end
             else
-                overlay = false
-            end
-        end
-
-        if not inventory.picture then
-            if x >= 873 and x <= 944 and y >= 303 and y <= 372 then
-                inventory.picture = true
-                overlay = "picturefront"
+                if x >= 10 and x <= 81 and y >= 646 and y <= 715 then
+                    overlay = "picturefront"
+                end
             end
         else
-            if x >= 10 and x <= 81 and y >= 646 and y <= 715 then
-                overlay = "picturefront"
+            if overlay == "picturefront" or overlay == "pictureback" then
+                if x >= 474 and x <= 806 and y >= 35 and y <= 685 then
+                    if overlay == "picturefront" then
+                        overlay = "pictureback"
+                    else
+                        overlay = "picturefront"
+                    end
+                else
+                    overlay = false
+                end
+            end
+
+            if overlay == "numberpuzzle" then
+                if x >= 565 and x <= 605 and y >= 335 and y <= 385 then
+                    if numberpuzzleNumbers["1"] == 9 then
+                        numberpuzzleNumbers["1"] = 0
+                    else
+                        numberpuzzleNumbers["1"] = numberpuzzleNumbers["1"] + 1
+                    end
+                elseif x >= 615 and x <= 655 and y >= 335 and y <= 385 then
+                    if numberpuzzleNumbers["2"] == 9 then
+                        numberpuzzleNumbers["2"] = 0
+                    else
+                        numberpuzzleNumbers["2"] = numberpuzzleNumbers["2"] + 1
+                    end
+                elseif x >= 665 and x <= 705 and y >= 335 and y <= 385 then
+                    if numberpuzzleNumbers["3"] == 9 then
+                        numberpuzzleNumbers["3"] = 0
+                    else
+                        numberpuzzleNumbers["3"] = numberpuzzleNumbers["3"] + 1
+                    end
+                end
+
+                if numberpuzzleNumbers["1"] == numberpuzzleSolution["1"] and numberpuzzleNumbers["2"] == numberpuzzleSolution["2"] and numberpuzzleNumbers["3"] == numberpuzzleSolution["3"] then
+                    overlay = false
+                    gameState = "openlockbox"
+                 end
             end
         end
     end
@@ -97,6 +133,8 @@ function game:draw()
         love.graphics.draw(coffin, 0, 0)
     elseif gameState == "lockbox" then
         love.graphics.draw(CoffinLockbox1, 0, 0)
+    elseif gameState == "openlockbox" then
+        love.graphics.draw(CoffinLockbox2, 0, 0)
     end
 
     -- Show the picture if it hasn't been picked up
@@ -123,6 +161,15 @@ function game:draw()
         love.graphics.draw(picturefront, 474, 35)
     elseif overlay == "pictureback" then
         love.graphics.draw(pictureback, 474, 35)
+    elseif overlay == "numberpuzzle" then
+        love.graphics.rectangle("fill", 565, 335, 40, 50)
+        love.graphics.rectangle("fill", 615, 335, 40, 50)
+        love.graphics.rectangle("fill", 665, 335, 40, 50)
+
+        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.print(numberpuzzleNumbers["1"], 575, 335)
+        love.graphics.print(numberpuzzleNumbers["2"], 625, 335)
+        love.graphics.print(numberpuzzleNumbers["3"], 675, 335)
     end
 
     love.graphics.setColor(overlayColor)
