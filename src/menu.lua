@@ -6,12 +6,12 @@ end
 
 function menu:draw()
     love.graphics.clear()
-    love.graphics.setBackgroundColor(255, 255, 255)
 
+    love.graphics.setBackgroundColor(255, 255, 255)
+    love.graphics.setColor(255, 255, 255)
     love.graphics.draw(logo, 0, 0)
 
     love.graphics.setColor(0, 0, 0)
-
     love.graphics.print("Start", 440, 370)
     love.graphics.print("Credits", 660, 370)
     love.graphics.print("Quit", 950, 370)
