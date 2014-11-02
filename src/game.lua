@@ -1,9 +1,15 @@
 local game = {}
 
+local overlayColor = { 0, 0, 0, 0 }
 local musicPaused = false
 
+local function suffocate()
+    Timer.tween(3, overlayColor, {0, 0, 0, 255}, 'linear', function() Gamestate.switch(suffocation) end)
+end
+
 function game:load()
-    coffinBackground = love.graphics.newImage("images/coffin.png")
+    coffin = love.graphics.newImage("images/coffin.png")
+
     soundOn = love.graphics.newImage("images/soundon.png")
     soundOff = love.graphics.newImage("images/soundoff.png")
 
@@ -14,10 +20,12 @@ end
 
 function game:enter()
     love.audio.play(gameMusic)
+
+    gameoverTimer = Timer.add(1800, function() suffocate() end)
 end
 
 function game:leave()
-    love.audio.stop(gameMusic)
+    Timer.cancel(gameoverTimer)
 end
 
 function game:mousepressed(x, y, button)
@@ -42,11 +50,11 @@ function game:draw()
     love.graphics.rectangle("fill", 0, 0, love.window.getWidth(), love.window.getHeight())
 
     love.graphics.setColor( 255, 255, 255, 100 )
-    love.graphics.circle( "fill", x, y, 100, 100 )
+    love.graphics.circle( "fill", x, y, 150, 150 )
 
     love.graphics.setBlendMode("multiplicative")
     love.graphics.setColor(255, 255, 255, 20)
-    love.graphics.draw(coffinBackground, 0, 0)
+    love.graphics.draw(coffin, 0, 0)
 
     love.graphics.setBlendMode("alpha")
 
@@ -55,6 +63,9 @@ function game:draw()
     else
         love.graphics.draw(soundOff, love.window.getWidth() - 160, love.window.getHeight() - 140)
     end
+
+    love.graphics.setColor(overlayColor)
+    love.graphics.rectangle("fill", 0, 0, love.window.getWidth(), love.window.getHeight())
 end
 
 return game

@@ -8,6 +8,7 @@ Timer = require "thirdparty.timer"
 menu = require "menu"
 credits = require "credits"
 game = require "game"
+suffocation = require "suffocation"
 
 function love.load()
     -- Set the window size and title
@@ -21,7 +22,9 @@ function love.load()
     logo = love.graphics.newImage("images/logo.png")
 
     -- Load the game assets
+    menu:load()
     game:load()
+    suffocation:load()
 
     -- Show the menu
     Gamestate.registerEvents()
