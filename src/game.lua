@@ -17,6 +17,7 @@ function game:load()
     CoffinLockbox1 = love.graphics.newImage("images/CoffinLockbox1.png")
     CoffinLockbox2 = love.graphics.newImage("images/CoffinLockbox2.png")
     CoffinLockbox3 = love.graphics.newImage("images/CoffinLockbox3.png")
+    CoffinPadlock = love.graphics.newImage("images/CoffinPadlock.png")
 
     key = love.graphics.newImage("images/key.png")
 
@@ -66,6 +67,14 @@ function game:mousepressed(x, y, button)
                 if x >= 217 and x <= 304 and y >= 138 and y <= 199 then
                     inventory.key = true
                     gameState = "lockboxkeytaken"
+                end
+            elseif gameState == "lockboxkeytaken" then
+                if x >= 0 and x <= 1280 and y >= 420 and y <= 720 then
+                    gameState = "lockexposed"
+                end
+            elseif gameState == "lockexposed" then
+                if x >= 798 and x <= 902 and y >= 438 and y <= 550 then
+                    Gamestate.switch(credits)
                 end
             end
 
@@ -145,6 +154,8 @@ function game:draw()
         love.graphics.draw(CoffinLockbox2, 0, 0)
     elseif gameState == "lockboxkeytaken" then
         love.graphics.draw(CoffinLockbox3, 0, 0)
+    elseif gameState == "lockexposed" then
+        love.graphics.draw(CoffinPadlock, 0, 0)
     end
 
     -- Show the picture if it hasn't been picked up
