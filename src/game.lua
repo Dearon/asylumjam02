@@ -39,7 +39,7 @@ end
 function game:enter()
     love.audio.play(gameMusic)
 
-    gameoverTimer = Timer.add(1, function() suffocate() end)
+    gameoverTimer = Timer.add(1800, function() suffocate() end)
 end
 
 function game:leave()
