@@ -6,7 +6,9 @@ local breathing = {volume = .0}
 
 local function fadeout()
     Timer.tween(3, overlayColor, {0, 0, 0, 255}, "linear")
-    Timer.tween(3, breathing, {volume = .0}, "linear", function() Gamestate.switch(credits) end)
+    Timer.tween(3, breathing, {volume = .0}, "linear", function()
+        Timer.tween(3, overlayColor, {255, 255, 255, 255}, "linear", function() Gamestate.switch(credits) end)
+    end)
 end
 
 function suffocation:load()
