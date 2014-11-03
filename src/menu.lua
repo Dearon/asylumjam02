@@ -1,7 +1,6 @@
 local menu = {}
 
 function menu:load()
-    menuSound = love.audio.newSource("audio/menuSound.mp3", "static")
 end
 
 function menu:draw()
@@ -20,17 +19,14 @@ end
 function menu:mousepressed(x, y, button)
     if button == "l" then
         if x >= 440 and x <= 520 and y >= 370 and y <= 410 then
-            love.audio.play(menuSound)
             Gamestate.switch(game)
         end
 
         if x >= 660 and x <= 775 and y >= 370 and y <= 410 then
-            love.audio.play(menuSound)
             Gamestate.switch(credits)
         end
 
         if x >= 950 and x <= 1020 and y >= 370 and y <= 410 then
-            love.audio.play(menuSound)
             love.event.quit()
         end
     end
