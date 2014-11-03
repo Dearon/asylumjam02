@@ -9,6 +9,7 @@ menu = require "menu"
 credits = require "credits"
 game = require "game"
 suffocation = require "suffocation"
+basement = require "basement"
 
 function love.load()
     -- Set the window size and title

@@ -12,6 +12,10 @@ local function suffocate()
     Timer.tween(3, overlayColor, {0, 0, 0, 255}, 'linear', function() Gamestate.switch(suffocation) end)
 end
 
+local function escape()
+    Timer.tween(3, overlayColor, {0, 0, 0, 255}, 'linear', function() Gamestate.switch(basement) end)
+end
+
 function game:load()
     coffin = love.graphics.newImage("images/coffin.png")
     CoffinLockbox1 = love.graphics.newImage("images/CoffinLockbox1.png")
@@ -35,7 +39,7 @@ end
 function game:enter()
     love.audio.play(gameMusic)
 
-    gameoverTimer = Timer.add(1800, function() suffocate() end)
+    gameoverTimer = Timer.add(1, function() suffocate() end)
 end
 
 function game:leave()
@@ -74,7 +78,7 @@ function game:mousepressed(x, y, button)
                 end
             elseif gameState == "lockexposed" then
                 if x >= 798 and x <= 902 and y >= 438 and y <= 550 then
-                    Gamestate.switch(credits)
+                    escape()
                 end
             end
 
